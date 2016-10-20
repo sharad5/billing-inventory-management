@@ -19,6 +19,7 @@ class Product(models.Model):
     date_updated=models.DateField(auto_now=True)
     cost_price=models.FloatField(blank=True,null=True,default=None)
     selling_price=models.FloatField(blank=True,null=True,default=None)
+    is_hidden=models.BooleanField(default=False)
     stock=models.PositiveIntegerField(default=0)
     category=models.ForeignKey(Category)
 
