@@ -11,8 +11,12 @@ class Order(models.Model):
     total_price=models.PositiveIntegerField(blank=False,null=False)
     total_quantity=models.PositiveIntegerField(blank=False,null=False)
     invoice=models.TextField(blank=True,null=True)
-    date=models.DateField(blank=False)
+    date=models.DateTimeField(blank=False)
     user=models.ForeignKey(User)
+    billing_details = models.TextField(blank=True,null=True)
+
+    def __str__(self):
+        return self.name + " (Order# "+str(self.id)+")"
 
 class OrderLine(models.Model):
     product=models.ForeignKey(Product)

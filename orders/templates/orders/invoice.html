@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+
+	<title>Editable Invoice</title>
+
+	<link rel='stylesheet' type='text/css' href='/static/orders/css/style1.css' />
+	<link rel='stylesheet' type='text/css' href='/static/orders/css/print.css' media="print" />
+	<script type='text/javascript' src='/static/orders/js/jquery-1.3.2.min.js'></script>
+	<script type='text/javascript' src='/static/orders/js/example.js'></script>
+
+</head>
+
+<body>
+	<script>
+		$(document).ready(function () {
+			window.print();
+		});
+	</script>
+	<div id="page-wrap">
+
+		<textarea id="header">INVOICE</textarea>
+
+		<div id="identity">
+
+            <div id="address">PIN2PC<br>
+G-61, Aggarwal Central Plaza<br>
+Sector-9, Rohini <br>
+New Delhi, India - 1100851<br>
+
+Phone: (+91) 9968520730</div>
+
+            <div id="logo">
+							<img id="image" src="/static/orders/images/pin2pc.jpg" alt="logo" />
+            </div>
+
+		</div>
+
+		<div style="clear:both"></div>
+
+		<div id="customer">
+
+            <textarea id="customer-title">{{order.billing_details}}</textarea>
+
+            <table id="meta">
+                <tr>
+                    <td class="meta-head">Invoice #</td>
+                    <td>{{order.id}}</td>
+                </tr>
+                <tr>
+
+                    <td class="meta-head">Date</td>
+                    <td><textarea id="date">{{order.date}}</textarea></td>
+                </tr>
+                <tr>
+                    <td class="meta-head">Amount Due</td>
+                    <td><div class="due">Rs. {{order.total_price}}</div></td>
+                </tr>
+
+            </table>
+
+		</div>
+
+		<table id="items">
+
+		  <tr>
+		      <th>S.No</th>
+		      <th>Item</th>
+		      <th>Unit Cost</th>
+		      <th>Quantity</th>
+		      <th>Price</th>
+		  </tr>
+			{% for line in lines %}
+		  <tr class="item-row">
+		      <td class="item-name">{{forloop.counter}}</td>
+		      <td class="description">{{line.product}}</td>
+		      <td><div class="cost">Rs. {{line.unit_price}}</div></td>
+		      <td><div class="qty">{{line.quantity}}</div></td>
+		      <td><span class="price">Rs. {{line.total_price}}</span></td>
+		  </tr>
+			{% endfor %}
+
+
+
+		  <tr>
+		      <td colspan="2" class="blank"> </td>
+		      <td colspan="2" class="total-line">Subtotal</td>
+		      <td class="total-value"><div id="subtotal">Rs. {{order.total_price|add:order.discount}}</div></td>
+		  </tr>
+		  <tr>
+
+		      <td colspan="2" class="blank"> </td>
+		      <td colspan="2" class="total-line">Discount</td>
+		      <td class="total-value"><div id="total">Rs. {{order.discount}}</div></td>
+		  </tr>
+			<tr>
+		      <td colspan="2" class="blank"> </td>
+		      <td colspan="2" class="total-line balance">Total Amount</td>
+		      <td class="total-value balance"><div class="due">Rs {{order.total_price}}</div></td>
+		  </tr>
+
+		</table>
+
+		<div id="terms">
+		  <h5>Terms</h5>
+		  <textarea>Taxes are already inclusive in the indicated prices.</textarea>
+		</div>
+
+	</div>
+
+</body>
+
+</html>

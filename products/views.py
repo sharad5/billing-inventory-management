@@ -11,3 +11,8 @@ from django.core import serializers
 def lookup_upc(request,upc):
     data = serializers.serialize('json', Product.objects.filter(upc__contains=upc), fields=('upc','title','selling_price','stock'))
     return HttpResponse(data,content_type="application/json")
+
+@csrf_exempt
+def product_details(request,id):
+    data = serializers.serialize('json',[get_object_or_404(Product, pk=id)], fields=('upc','title','selling_price','stock'))
+    return HttpResponse(data,content_type="application/json")
