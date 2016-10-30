@@ -45,7 +45,8 @@ var OrderTable = React.createClass({
       total_price: 0,
       discountPercent:0,
       billing_details:"",
-      order_id:null
+      order_id:null,
+      date:new Date().toString()
     }
   },
   handleBillingDetailsChange:function (e) {
@@ -224,12 +225,10 @@ var OrderTable = React.createClass({
                   </div>
                   <div className="col-xs-12 col-md-6 col-lg-6">
                       <div className="panel panel-default height">
-                          <div className="panel-heading">Payment Information</div>
+                          <div className="panel-heading">Other Information</div>
                           <div className="panel-body">
-                              <strong>Invoice Number:</strong> 123456<br/>
-                              <strong>Invoice Date:</strong> 10/10/10<br/>
-                              <strong>Purcahsed On:</strong> 10/10/10<br/>
-                              <strong>TIN #:</strong> 123456789<br/>
+                              <strong>Invoice Date:</strong> {this.state.date}<br/>
+                              <strong>Purcahsed On:</strong> {this.state.date}<br/>
                           </div>
                       </div>
                   </div>
