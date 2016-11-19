@@ -68,7 +68,8 @@ var OrderTable = React.createClass({
   },
   componentDidMount: function () {
     $('#add_product').on("select2:select", function (evt) {
-      var id=$(evt.target).val()[0];
+      var id=$(evt.target).val();
+      print(id);
       $.getJSON('/products/product-details/'+id, function (data) {
         data=data[0];
         var newState= React.addons.update(this.state,{
